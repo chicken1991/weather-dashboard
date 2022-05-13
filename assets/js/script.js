@@ -1,7 +1,8 @@
 var apiKey = "bb8601e18b9103dc237a06422d96ca40"
 var searchTextEl = $("#searchID");
 var buttonEl = $("<button>");
-// var city = $('input[name="search"]').val();
+var city = $('input[name="search"]').val();
+var featuredEl = $("#featured");
 
 
 // var geocode = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=" + 1 + "&appid=" + apiKey;
@@ -9,7 +10,7 @@ var buttonEl = $("<button>");
 function displayWeather() {
     // event.preventDefault();
     // city = city.val();
-    var city = "seattle";
+    city = "seattle";
     console.log(city);
 
     var geocode = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=" + 1 + "&appid=" + apiKey;
@@ -24,6 +25,7 @@ function displayWeather() {
             var latRes = data[0].lat;
             //call function that fetches the actual weather stuff
             fetchWeather(latRes, lonRes);
+            //add city and date to featured card
         })
         .catch(function (error) {
             console.error(error);
@@ -31,7 +33,8 @@ function displayWeather() {
 }
 
 function fetchWeather(lat, lon) {
-    var oneCall = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey;
+    //use imperial units in the api call
+    var oneCall = "https://api.openweathermap.org/data/2.5/onecall?units=imperial&lat=" + lat + "&lon=" + lon + "&appid=" + apiKey;
     fetch(oneCall)
         .then(function (response) {
             if (!response) {
@@ -41,6 +44,17 @@ function fetchWeather(lat, lon) {
             }
         })
         .then(function (data) {
+            //Create a ton of divs, give classes, append and create each card starting with the feature card.
+            var featured = $("<div>").addClass("card col-9");
+            featuredEl.append(featured);
+            var cardHeader = $("<div>").addClass("card-header");
+            cardHeader.text(city);
+            featured.append(cardHeader);
+            var featuredBody = $("<div>").addClass("card-body");
+            
+
+            
+
             console.log(data);
         })
         .catch(console.error);
@@ -56,5 +70,5 @@ function searchAgain(event) {
     whatever.text("WAOEFPSFJOPSEFSEOPJF");
 }
 
-buttonEl.on('submit', searchAgain);
-displayWeather;
+// buttonEl.on('click', searchAgain);
+displayWeather();
