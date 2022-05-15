@@ -13,10 +13,10 @@
   <link rel="stylesheet" href="./assets/css/style.css" />
 </head>
 
-<body>
+<body class="bg-dark text-white">
   <header class="py-3 mb-3 border-bottom">
     <div class="container-fluid d-grid gap-3 align-items-center" style="grid-template-columns: 1fr 2fr;">
-      <div class="d-flex align-items-center">
+      <div class="d-flex align-items-center ">
         <h1>Weather Dashboard</h1>
       </div>
     </div>
@@ -24,23 +24,23 @@
 
   <div class="container-fluid pb-3">
     <div class="d-grid gap-3" style="grid-template-columns: 1fr 2fr;">
-      <div id="left" class="bg-light border rounded-3">
+      <div id="left" class="bg-dark border rounded-3">
 
         <!-- This is the left side area that holds the search bar and search history -->
         <div class="input-group mb-3">
 
           <!-- This is the search bar -->
           <button class="btn btn-outline-secondary" type="button" id="searchBtn">City Search</button>
-          <input type="text" class="form-control" name="search" placeholder="Seattle"
+          <input type="text" class="form-control bg-secondary text-white" name="search" placeholder="Seattle"
             aria-label="Example text with button addon" aria-describedby="button-addon1">
         </div>
         <div> Search History </div>
 
         <!-- This is the anchor for the search history buttons -->
-        <div class="d-grid gap-2" id="history">
+        <div class="d-grid gap-2 bg-dark text-white" id="history">
         </div>
       </div>
-      <div class="bg-light border rounded-3">
+      <div class="bg-dark border rounded-3">
 
         <!-- The featured section is the anchor for all elements that are created in the script.js file -->
         <div class="row" id="featured">

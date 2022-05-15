@@ -8,9 +8,9 @@ var historyEl = $("#history");
 var today = moment().format("MMM Do, YYYY");
 var histArray;
 
-function initStorage(){
+function initStorage() {
     var oldStoredArray = JSON.parse(localStorage.getItem("storedArray"));
-    if (oldStoredArray){
+    if (oldStoredArray) {
         histArray = oldStoredArray;
     } else {
         histArray = [];
@@ -21,7 +21,7 @@ function displayWeather() {
 
     //display the previous searches as buttons
     displayHistory();
-       
+
     //This url retrieves the lat and lon of a city
     var geocode = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=" + 1 + "&appid=" + apiKey;
 
@@ -31,7 +31,7 @@ function displayWeather() {
             return response.json();
         })
         .then(function (data) {
-            if(data.length == 0){
+            if (data.length == 0) {
                 alert("type a real city okay??");
             }
             var lonRes = data[0].lon;
@@ -60,45 +60,45 @@ function fetchWeather(lat, lon) {
             //Create a ton of divs, give classes, append and create each card starting with the feature card.
 
             // This is the featured card which displays TODAY 
-            var featured = $("<div>").addClass("card col-12");
+            var featured = $("<div>").addClass("card col-12 bg-dark text-white border-white");
             featuredEl.append(featured);
-            
-            var cardHeader = $("<div>").addClass("card-header");
+
+            var cardHeader = $("<div>").addClass("card-header bg-dark text-white");
             cardHeader.text(city);
             featured.append(cardHeader);
-            
-            var featuredBody = $("<div>").addClass("card-body");
+
+            var featuredBody = $("<div>").addClass("card-body bg-dark text-white");
             featured.append(featuredBody);
-            
+
             var featuredDate = $("<h5>").addClass("date");
             featuredDate.text(today);
             featuredBody.append(featuredDate);
-            
+
             var featuredImg = $("<img>");
             featuredImg.attr("src", "https://openweathermap.org/img/wn/" + data.current.weather[0].icon + "@2x.png");
             featuredBody.append(featuredImg);
-            
+
             var featuredTemp = $("<p>").addClass("card-text");
             featuredTemp.text("Temperature: " + data.current.temp);
             featuredBody.append(featuredTemp);
-            
+
             var featuredWind = $("<p>").addClass("card-text");
             featuredWind.text("Wind: " + data.current.wind_speed);
             featuredBody.append(featuredWind);
-            
+
             var featuredHum = $("<p>").addClass("card-text");
             featuredHum.text("Humidity: " + data.current.humidity + "%");
             featuredBody.append(featuredHum);
-            
+
             // Lets do some UV shit!
             // If index < 3, green
             // if index between 3 and 7, orange
             // if index > 7, RED!!!!! FUCK ITS High
             var uvIndex = data.current.uvi;
             var uvColor;
-            if(uvIndex < 3){
+            if (uvIndex < 3) {
                 uvColor = "green";
-            } else if(uvIndex < 2 && uvIndex > 8){
+            } else if (uvIndex < 2 && uvIndex > 8) {
                 uvColor = "orange";
             } else {
                 uvColor = "red";
@@ -117,28 +117,28 @@ function fetchWeather(lat, lon) {
                 //increase date by one day
                 cardDate = moment().add(i, "d").format("MMM Do");
 
-                var day = $("<div>").addClass("card col").attr("id", "day");
+                var day = $("<div>").addClass("card col bg-dark text-white border-white").attr("id", "day");
                 forcastEl.append(day);
 
-                var dayBody = $("<div>").addClass("card-body");
+                var dayBody = $("<div>").addClass("card-body bg-dark text-white");
                 day.append(dayBody);
-                
+
                 var cardTitle = $("<div>").addClass("card-title");
                 cardTitle.text(cardDate);
                 dayBody.append(cardTitle);
-                
+
                 var cardImg = $("<img>").addClass("icon");
-                cardImg.attr("src", "https://openweathermap.org/img/wn/" + data.daily[i].weather[0].icon  + "@2x.png");
+                cardImg.attr("src", "https://openweathermap.org/img/wn/" + data.daily[i].weather[0].icon + "@2x.png");
                 dayBody.append(cardImg);
-                
+
                 var cardTemp = $("<p>").addClass("card-text");
                 cardTemp.text("Temperature: " + data.current.temp);
                 dayBody.append(cardTemp);
-                
+
                 var cardWind = $("<p>").addClass("card-text");
                 cardWind.text("Wind: " + data.current.wind_speed);
                 dayBody.append(cardWind);
-                
+
                 var cardHum = $("<p>").addClass("card-text");
                 cardHum.text("Humidity: " + data.daily[i].humidity + "%");
                 dayBody.append(cardHum);
@@ -168,13 +168,13 @@ function init(parent) {
     parent.empty();
 }
 
-function displayHistory(){
+function displayHistory() {
     //remove previous buttons if any
     init(historyEl);
 
     //for each item in the history array, display it as a button
-    for(var i = 0; i < histArray.length; i++){
-        var btn = $("<button>").addClass("btn btn-primary");
+    for (var i = 0; i < histArray.length; i++) {
+        var btn = $("<button>").addClass("btn btn-primary bg-dark text-white");
         btn.attr("type", "button");
         btn.attr("id", "button" + i);
         btn.text(histArray[i]);
@@ -186,13 +186,13 @@ function displayHistory(){
             init(featuredEl);
             init(forcastEl);
             displayWeather();
-          });
+        });
     }
     localStorage.setItem("storedArray", JSON.stringify(histArray));
 }
 
 //history button clicker function
-function historyGo(event){
+function historyGo(event) {
     var btn = event.target.id;
     city = btn.text;
     console.log(city);
