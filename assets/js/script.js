@@ -109,7 +109,7 @@ function fetchWeather(lat, lon) {
                 dayBody.append(cardTitle);
                 
                 var cardImg = $("<img>").addClass("icon");
-                cardImg.attr("src", "http://openweathermap.org/img/wn/" + data.daily[i].weather[0].icon  + "@2x.png");
+                cardImg.attr("src", "https://openweathermap.org/img/wn/" + data.daily[i].weather[0].icon  + "@2x.png");
                 dayBody.append(cardImg);
                 
                 var cardTemp = $("<p>").addClass("card-text");
