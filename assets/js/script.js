@@ -23,7 +23,7 @@ function displayWeather() {
     displayHistory();
        
     //This url retrieves the lat and lon of a city
-    var geocode = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=" + 1 + "&appid=" + apiKey;
+    var geocode = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=" + 1 + "&appid=" + apiKey;
 
     //Use the lat/lon api to get appropriate results for the city
     fetch(geocode)
@@ -72,7 +72,7 @@ function fetchWeather(lat, lon) {
             featuredBody.append(featuredDate);
             
             var featuredImg = $("<img>");
-            featuredImg.attr("src", "http://openweathermap.org/img/wn/" + data.current.weather[0].icon + "@2x.png");
+            featuredImg.attr("src", "https://openweathermap.org/img/wn/" + data.current.weather[0].icon + "@2x.png");
             featuredBody.append(featuredImg);
             
             var featuredTemp = $("<p>").addClass("card-text");
@@ -161,6 +161,7 @@ function displayHistory(){
     for(var i = 0; i < histArray.length; i++){
         var btn = $("<button>").addClass("btn btn-primary");
         btn.attr("type", "button");
+        btn.attr("id", "button" + i);
         btn.text(histArray[i]);
         console.log(histArray[i]);
         historyEl.append(btn);
@@ -169,6 +170,14 @@ function displayHistory(){
     localStorage.setItem("storedArray", JSON.stringify(histArray));
 }
 
+//history button clicker function
+function historyGo(event){
+    var btn = event.target.id;
+    city = btn.text;
+    console.log(city);
+}
+
 initStorage();
 displayWeather();
 searchBtn.on('click', search);
+
