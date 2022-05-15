@@ -45,15 +45,7 @@
     <div class="d-grid gap-3" style="grid-template-columns: 1fr 2fr;">
       <div id="left" class="bg-light border rounded-3">
         <!-- Insert placeholder blank stuff here for before the weather loads -->
-        <div class="input-group mb-3">
-          <button class="btn btn-outline-secondary" type="button" id="searchBtn">City Search</button>
-          <input type="text" class="form-control" name="search" placeholder="Seattle" aria-label="Example text with button addon" aria-describedby="button-addon1">
-        </div>
-        <div> Search History </div>
-        <div class="d-grid gap-2" id="history"> 
-          <!-- <button class="btn btn-primary" type="button">Need text</button>
-          <button class="btn btn-primary" type="button">in these buttons</button> -->
-        </div>
+        Test
       </div>
       <div class="bg-light border rounded-3">
         <!-- Insert placeholder blank stuff here for before the weather loads -->
@@ -71,14 +63,47 @@
           </div> -->
         </div>
         <div class="row" id="forcast">
-          <!-- <div class="card text-bg-dark mb-3" style="max-width: 18rem;">
-            <div class="card-header">Header</div>
+          <!-- <div class="card col">
             <div class="card-body">
-              <h5 class="card-title">Dark card title</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <h5 class="card-title">DATE +1</h5>
+              <p class="card-text">Temp:</p>
+              <p class="card-text">Wind:</p>
+              <p class="card-text">Humidity:</p>
             </div>
-          </div> -->
-        </div>
+          </div>
+          <div class="card col">
+            <div class="card-body">
+              <h5 class="card-title">DATE +1</h5>
+              <p class="card-text">Temp:</p>
+              <p class="card-text">Wind:</p>
+              <p class="card-text">Humidity:</p>
+            </div>
+          </div>
+          <div class="card col">
+            <div class="card-body">
+              <h5 class="card-title">DATE +1</h5>
+              <p class="card-text">Temp:</p>
+              <p class="card-text">Wind:</p>
+              <p class="card-text">Humidity:</p>
+            </div>
+          </div>
+          <div class="card col">
+            <div class="card-body">
+              <h5 class="card-title">DATE +1</h5>
+              <p class="card-text">Temp:</p>
+              <p class="card-text">Wind:</p>
+              <p class="card-text">Humidity:</p>
+            </div>
+          </div>
+          <div class="card col">
+            <div class="card-body">
+              <h5 class="card-title">DATE +1</h5>
+              <p class="card-text">Temp:</p>
+              <p class="card-text">Wind:</p>
+              <p class="card-text">Humidity:</p>
+            </div>
+          </div>
+        </div> -->
       </div>
 
     </div>

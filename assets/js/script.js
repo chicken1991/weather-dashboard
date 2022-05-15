@@ -1,21 +1,20 @@
 var apiKey = "bb8601e18b9103dc237a06422d96ca40"
 var searchTextEl = $("#searchID");
-var buttonEl = $("<button>");
-var city = $('input[name="search"]').val();
+var searchBtn = $("#searchBtn");
+var city = "Seattle"
 var featuredEl = $("#featured");
 var forcastEl = $("#forcast");
+var historyEl = $("#history");
 var today = moment().format("MMM Do, YYYY");
-console.log(today);
 
-
-// var geocode = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=" + 1 + "&appid=" + apiKey;
+var histArray = [];
 
 function displayWeather() {
-    // event.preventDefault();
-    // city = city.val();
-    city = "seattle";
-    console.log(city);
 
+    //display the previous searches
+    displayHistory();
+       
+    //This url retrieves the lat and lon of a city
     var geocode = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=" + 1 + "&appid=" + apiKey;
 
     //Use the lat/lon api to get appropriate results for the city
@@ -51,7 +50,7 @@ function fetchWeather(lat, lon) {
             console.log(data);
 
             // This is the featured card which displays TODAY ===============================================
-            var featured = $("<div>").addClass("card col-9");
+            var featured = $("<div>").addClass("card col-12");
             featuredEl.append(featured);
             var cardHeader = $("<div>").addClass("card-header");
             cardHeader.text(city);
@@ -83,8 +82,7 @@ function fetchWeather(lat, lon) {
                 //increase date by one day
                 cardDate = moment().add(i, "d").format("MMM Do");
 
-
-                var day = $("<div>").addClass("card col-9");
+                var day = $("<div>").addClass("card col").attr("id", "day");
                 forcastEl.append(day);
 
                 var dayBody = $("<div>").addClass("card-body");
@@ -93,7 +91,7 @@ function fetchWeather(lat, lon) {
                 cardTitle.text(cardDate);
                 dayBody.append(cardTitle);
                 var cardImg = $("<img>").addClass("icon");
-                cardImg.attr("src", "http://openweathermap.org/img/wn/" + data.current.weather[0].icon + "@2x.png");
+                cardImg.attr("src", "http://openweathermap.org/img/wn/" + data.daily[i].weather[0].icon  + "@2x.png");
                 dayBody.append(cardImg);
                 var cardTemp = $("<p>").addClass("card-text");
                 cardTemp.text("Temperature: " + data.current.temp);
@@ -116,15 +114,35 @@ function fetchWeather(lat, lon) {
         .catch(console.error);
 }
 
-function searchAgain(event) {
+//Receive user input and throw that at displayWeather, then add it to history array
+function search(event) {
+    console.log(featuredEl.first());
     event.preventDefault();
-    // city = $('input[name="search"]').val();
-    // console.log(city);
-    // displayWeather();
-    console.log("YOU CLICKED IT");
-    var whatever = $("#left");
-    whatever.text("WAOEFPSFJOPSEFSEOPJF");
+
+    //Remove old elements to make room for new ones
+    init(featuredEl);
+    init(forcastEl);
+    city = $('input[name="search"]').val();
+    histArray.unshift(city);
+    console.log(histArray);
+    displayWeather();
 }
 
-// buttonEl.on('click', searchAgain);
+function init(parent) {
+    parent.empty();
+}
+
+function displayHistory(){
+    init(historyEl);
+    console.log("why this no display button?");
+    for(var i = 0; i < histArray.length; i++){
+        var btn = $("<button>").addClass("btn btn-primary");
+        btn.attr("type", "button");
+        btn.text(histArray[i]);
+        console.log(histArray[i]);
+        historyEl.append(btn);
+    }
+}
+
 displayWeather();
+searchBtn.on('click', search);

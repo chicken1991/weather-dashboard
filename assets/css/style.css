@@ -1,3 +1,7 @@
 .icon {
     max-width: 4em;
 }
+
+.card-header {
+    font-size: 3em;
+}
