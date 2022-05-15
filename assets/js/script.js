@@ -31,6 +31,9 @@ function displayWeather() {
             return response.json();
         })
         .then(function (data) {
+            if(data.length == 0){
+                alert("type a real city okay??");
+            }
             var lonRes = data[0].lon;
             var latRes = data[0].lat;
             //call function that fetches the actual weather stuff
@@ -84,11 +87,27 @@ function fetchWeather(lat, lon) {
             featuredBody.append(featuredWind);
             
             var featuredHum = $("<p>").addClass("card-text");
-            featuredHum.text = ("Humidity: " + data.current.humidity);
+            featuredHum.text("Humidity: " + data.current.humidity + "%");
             featuredBody.append(featuredHum);
             
+            // Lets do some UV shit!
+            // If index < 3, green
+            // if index between 3 and 7, orange
+            // if index > 7, RED!!!!! FUCK ITS High
+            var uvIndex = data.current.uvi;
+            var uvColor;
+            if(uvIndex < 3){
+                uvColor = "green";
+            } else if(uvIndex < 2 && uvIndex > 8){
+                uvColor = "orange";
+            } else {
+                uvColor = "red";
+            }
+
             var featuredUV = $("<p>").addClass("card-text");
             featuredUV.text("UV Index: " + data.current.uvi);
+            featuredUV.css("color", uvColor);
+            featuredUV.css("font-weight", "bolder");
             featuredBody.append(featuredUV);
 
             //initialize todays date and add to it for each card
@@ -121,12 +140,8 @@ function fetchWeather(lat, lon) {
                 dayBody.append(cardWind);
                 
                 var cardHum = $("<p>").addClass("card-text");
-                cardHum.text = ("Humidity: " + data.current.humidity);
+                cardHum.text("Humidity: " + data.daily[i].humidity + "%");
                 dayBody.append(cardHum);
-                
-                var cardUV = $("<p>").addClass("card-text");
-                cardUV.text("UV Index: " + data.current.uvi);
-                dayBody.append(cardUV);
             }
 
             console.log(data);
@@ -137,7 +152,7 @@ function fetchWeather(lat, lon) {
 //Receive user input and throw that at displayWeather, then add it to history array
 function search(event) {
     console.log(featuredEl.first());
-    event.preventDefault();
+    // event.preventDefault();
 
     //Remove old elements to make room for new ones
     init(featuredEl);
@@ -165,8 +180,14 @@ function displayHistory(){
         btn.text(histArray[i]);
         console.log(histArray[i]);
         historyEl.append(btn);
+        btn.on('click', function (event) {
+            console.log(event.target.textContent);
+            city = event.target.textContent;
+            init(featuredEl);
+            init(forcastEl);
+            displayWeather();
+          });
     }
-
     localStorage.setItem("storedArray", JSON.stringify(histArray));
 }
 
