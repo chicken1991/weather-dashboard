@@ -30,12 +30,15 @@
         <div class="input-group mb-3">
 
           <!-- This is the search bar -->
-          
           <input type="text" class="form-control bg-secondary text-white" name="search" placeholder="Seattle"
             aria-label="Example text with button addon" aria-describedby="button-addon1">
-            <button class="btn btn-outline-secondary" type="button" id="searchBtn">City Search</button>
+          <button class="btn btn-outline-secondary" type="button" id="searchBtn" autofocus>City Search</button>
         </div>
-        <div> Search History </div>
+        <div>
+          <h2>Search History</h2>
+          <button class="bg-dark text-white" type="button" id="clearHist">Clear History</button>
+
+        </div>
 
         <!-- This is the anchor for the search history buttons -->
         <div class="d-grid gap-2 bg-dark text-white" id="history">
@@ -53,6 +56,25 @@
 
     </div>
   </div>
+  </div>
+
+  <!-- Modal testing -->
+
+  <div class="modal fade " id="errorMessage" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content bg-dark text-white">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalLabel">Error</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Unable to find that city. Please try searching again.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"

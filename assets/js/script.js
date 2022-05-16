@@ -1,17 +1,19 @@
 var apiKey = "bb8601e18b9103dc237a06422d96ca40"
-var searchTextEl = $("#searchID");
+var searchTextEl = $("#search");
 var searchBtn = $("#searchBtn");
 var city = "Seattle"
 var featuredEl = $("#featured");
 var forcastEl = $("#forcast");
 var historyEl = $("#history");
 var today = moment().format("MMM Do, YYYY");
+var clearHist = $("#clearHist");
+var cityLong;
+// var errorMessage = $("#errorMessage");
 var histArray;
 
 function initStorage() {
-    var oldStoredArray = JSON.parse(localStorage.getItem("storedArray"));
-    if (oldStoredArray) {
-        histArray = oldStoredArray;
+    if (localStorage.getItem("storedArray")) {
+        histArray = JSON.parse(localStorage.getItem("storedArray"));
     } else {
         histArray = [];
     }
@@ -32,10 +34,25 @@ function displayWeather() {
         })
         .then(function (data) {
             if (data.length == 0) {
-                alert("type a real city okay??");
+                // alert("type a real city okay??");
+                //display modal somehow?
+                $("#errorMessage").modal("show");
+                console.log("did my modal trigger?");
             }
+
+            // console.log(data);
+
+            //Display full city, state, country. If no state, just display city and country
+            if(data[0].state){
+                cityLong = data[0].name + ", " + data[0].state + ", " + data[0].country;
+            } else {
+                cityLong = data[0].name + ", " + data[0].country;
+            }
+
+            //find coords in api
             var lonRes = data[0].lon;
             var latRes = data[0].lat;
+
             //call function that fetches the actual weather stuff
             fetchWeather(latRes, lonRes);
         })
@@ -56,6 +73,7 @@ function fetchWeather(lat, lon) {
             }
         })
         .then(function (data) {
+            // console.log(data);
 
             //Create a ton of divs, give classes, append and create each card starting with the feature card.
 
@@ -64,13 +82,14 @@ function fetchWeather(lat, lon) {
             featuredEl.append(featured);
 
             var cardHeader = $("<div>").addClass("card-header bg-dark text-white");
-            cardHeader.text(city);
+            cardHeader.text(cityLong);
+            // cardHeader.text(data);
             featured.append(cardHeader);
 
             var featuredBody = $("<div>").addClass("card-body bg-dark text-white");
             featured.append(featuredBody);
 
-            var featuredDate = $("<h5>").addClass("date");
+            var featuredDate = $("<h4>").addClass("date");
             featuredDate.text(today);
             featuredBody.append(featuredDate);
 
@@ -151,15 +170,14 @@ function fetchWeather(lat, lon) {
 
 //Receive user input and throw that at displayWeather, then add it to history array
 function search(event) {
-    console.log(featuredEl.first());
-    // event.preventDefault();
-
     //Remove old elements to make room for new ones
     init(featuredEl);
     init(forcastEl);
-    city = $('input[name="search"]').val();
-    histArray.unshift(city);
-    console.log(histArray);
+    city = $('input[name="search"]').val().toLowerCase();
+    //Convert user input to upper case on first letter
+    if(city){
+    histArray.unshift(city.substring(0,1).toUpperCase() + city.substring(1));
+    }
     displayWeather();
 }
 
@@ -198,7 +216,12 @@ function historyGo(event) {
     console.log(city);
 }
 
+function clearHistory(){
+    init(historyEl);
+    localStorage.removeItem("storedArray");
+}
+
 initStorage();
 displayWeather();
 searchBtn.on('click', search);
-
+clearHist.on('click', clearHistory);
