@@ -219,6 +219,7 @@ function historyGo(event) {
 function clearHistory(){
     init(historyEl);
     localStorage.removeItem("storedArray");
+    histArray = [];
 }
 
 initStorage();
