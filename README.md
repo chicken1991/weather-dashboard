@@ -20,6 +20,15 @@ UV Index changes color depending on severity level, as required by the grading p
 * Repo link: https://github.com/chicken1991/weather-dashboard.git
 * Live Demo: https://chicken1991.github.io/weather-dashboard/
 
-# Mockup
+# Screenshots
 
 ![demo.png](/assets/images/demo.png)
+![demo2.png](/assets/images/demo2.png)
+![demo3.png](/assets/images/demo3.png)
+
+
+-Created by Ben Pitroff-
+
+[github](https://github.com/chicken1991)
+
+[This project is MIT licensed](./license.md)
