@@ -22,9 +22,9 @@ UV Index changes color depending on severity level, as required by the grading p
 
 # Screenshots
 
-![demo.png](/assets/images/demo.png)
-![demo2.png](/assets/images/demo2.png)
-![demo3.png](/assets/images/demo3.png)
+![demo.png](./assets/images/demo.png)
+![demo2.png](./assets/images/demo2.png)
+![demo3.png](./assets/images/demo3.png)
 
 
 -Created by Ben Pitroff-
