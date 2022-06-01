@@ -117,7 +117,7 @@ function fetchWeather(lat, lon) {
             var uvColor;
             if (uvIndex < 3) {
                 uvColor = "green";
-            } else if (uvIndex < 2 && uvIndex > 8) {
+            } else if (uvIndex > 2 && uvIndex < 8) {
                 uvColor = "orange";
             } else {
                 uvColor = "red";
