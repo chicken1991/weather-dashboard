@@ -109,10 +109,10 @@ function fetchWeather(lat, lon) {
             featuredHum.text("Humidity: " + data.current.humidity + "%");
             featuredBody.append(featuredHum);
 
-            // Lets do some UV shit!
+            // UV stufffff
             // If index < 3, green
             // if index between 3 and 7, orange
-            // if index > 7, RED!!!!! FUCK ITS High
+            // if index > 7, RED!!!!! 
             var uvIndex = data.current.uvi;
             var uvColor;
             if (uvIndex < 3) {
@@ -151,11 +151,11 @@ function fetchWeather(lat, lon) {
                 dayBody.append(cardImg);
 
                 var cardTemp = $("<p>").addClass("card-text");
-                cardTemp.text("Temperature: " + data.current.temp);
+                cardTemp.text("Temperature: " + data.daily[i].temp.day);
                 dayBody.append(cardTemp);
 
                 var cardWind = $("<p>").addClass("card-text");
-                cardWind.text("Wind: " + data.current.wind_speed);
+                cardWind.text("Wind: " + data.daily[i].wind_speed);
                 dayBody.append(cardWind);
 
                 var cardHum = $("<p>").addClass("card-text");
